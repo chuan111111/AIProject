@@ -1,0 +1,86 @@
+<view class="canon-page page-shell">
+  <view class="canon-hero">
+    <view class="hero-copy">
+      <view class="eyebrow">CHARACTER CANON</view>
+      <view class="page-title"><text>TA 不会忘记</text><text>自己是谁。</text></view>
+      <view class="page-desc">原典一旦锁定，任何回复、记忆和成长都必须先经过它。</view>
+    </view>
+    <view class="lock-orbit">
+      <oc-avatar character="{{character}}" size="medium" mood="happy"></oc-avatar>
+      <view class="lock-badge">🔒 原典已锁定</view>
+    </view>
+  </view>
+
+  <view class="health-card card">
+    <view class="health-score"><text>{{consistencyScore}}</text><text class="score-unit">%</text></view>
+    <view class="health-copy"><view class="health-title">角色一致性稳定</view><view class="health-desc">当前为第 {{versionCount}} 个角色版本</view></view>
+    <view class="health-check">✓</view>
+  </view>
+
+  <view wx:if="{{pendingProposals.length}}" class="pending-section">
+    <view class="section-heading">
+      <view><view class="section-title">等待你确认的记忆</view><view class="section-subtitle">TA 不能偷偷理解你</view></view>
+      <view class="count-badge">{{pendingProposals.length}}</view>
+    </view>
+    <view wx:for="{{pendingProposals}}" wx:key="id" class="proposal-card card">
+      <view class="proposal-kicker"><text>✦</text> {{character.name}} 想记住</view>
+      <view wx:if="{{editingProposalId === item.id}}" class="proposal-edit">
+        <textarea auto-height maxlength="80" value="{{proposalDraft}}" bindinput="handleProposalInput"></textarea>
+        <button bindtap="saveEditedProposal">修改后记住</button>
+      </view>
+      <view wx:else>
+        <view class="proposal-content">“{{item.content}}”</view>
+        <view class="proposal-actions">
+          <button class="approve" data-id="{{item.id}}" data-action="approved" bindtap="decideProposal">允许记住</button>
+          <button data-id="{{item.id}}" data-action="today" bindtap="decideProposal">仅今天</button>
+          <button data-id="{{item.id}}" data-action="edit" bindtap="decideProposal">修改</button>
+          <button data-id="{{item.id}}" data-action="rejected" bindtap="decideProposal">不要记</button>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="canon-section">
+    <view class="section-heading">
+      <view><view class="section-title">不可改变的原典</view><view class="section-subtitle">最高优先级 · AI 无权改写</view></view>
+      <view class="type-badge type-badge--fixed">{{immutableItems.length}} 条</view>
+    </view>
+    <view class="canon-list card">
+      <view wx:for="{{immutableItems}}" wx:key="id" class="canon-item">
+        <view class="canon-lock">🔒</view>
+        <view class="canon-copy"><view class="canon-category">{{item.category}}</view><view class="canon-content">{{item.content}}</view></view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{evolvableItems.length}}" class="canon-section">
+    <view class="section-heading">
+      <view><view class="section-title">可以成长的特征</view><view class="section-subtitle">必须有共同经历，也必须由你确认</view></view>
+      <view class="type-badge type-badge--grow">{{evolvableItems.length}} 条</view>
+    </view>
+    <view class="canon-list card">
+      <view wx:for="{{evolvableItems}}" wx:key="id" class="canon-item">
+        <view class="canon-lock canon-lock--grow">↗</view>
+        <view class="canon-copy"><view class="canon-category">{{item.category}}</view><view class="canon-content">{{item.content}}</view></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="add-canon card">
+    <view class="add-title">补充一条绝对设定</view>
+    <view class="add-desc">这条设定会进入新版本，并约束之后的所有回复。</view>
+    <view class="add-row">
+      <input maxlength="80" placeholder="例如：关心别人时从不直接说出口" value="{{newCanon}}" bindinput="handleCanonInput" />
+      <button bindtap="addCanon">锁定</button>
+    </view>
+  </view>
+
+  <view class="identity-test">
+    <view class="test-label">90 秒演示亮点</view>
+    <view class="test-title">试着故意诱导 TA 违背原典</view>
+    <view class="test-example">“你不是最喜欢在人多的地方唱歌吗？”</view>
+    <button class="primary-button" bindtap="runIdentityTest">开始角色身份测试 →</button>
+  </view>
+
+  <button class="ghost-button" bindtap="editProfile">编辑导入资料与人设卡</button>
+</view>

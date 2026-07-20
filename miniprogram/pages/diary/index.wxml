@@ -1,0 +1,42 @@
+<view class="diary-page page-shell">
+  <view class="diary-header">
+    <view><view class="eyebrow">PIXEL THEATER · DAILY SAVE</view><view class="page-title">{{character.name}} 的今日小剧场</view><view class="page-desc">只取用你确认过的记忆，把今天拼成四格像素日记。</view></view>
+    <view class="header-avatar pixel-panel"><oc-avatar character="{{character}}" size="small" mood="happy"></oc-avatar></view>
+  </view>
+
+  <view class="source-strip pixel-panel">
+    <view class="source-item"><text class="source-number">{{memoryCount}}</text><text>确认记忆</text></view><view class="source-divider"></view>
+    <view class="source-item"><text class="source-number">{{residentCount}}</text><text>出场住户</text></view><view class="source-divider"></view>
+    <view class="source-item"><text class="source-number">4</text><text>剧情格数</text></view>
+  </view>
+
+  <view wx:if="{{currentDiary}}" class="comic-wrap pixel-panel">
+    <view class="comic-head"><view><view class="pixel-label">EP. {{currentDiary.dateKey}}</view><view class="comic-title">今天，小屋也有好好生活。</view></view><view class="mood-chip">{{currentDiary.mood}}</view></view>
+    <view class="comic-grid">
+      <view wx:for="{{storyFrames}}" wx:key="id" class="comic-frame">
+        <view class="frame-scene scene--{{item.scene}}">
+          <view class="frame-window"></view><view class="frame-table"></view><view class="frame-lamp"></view>
+          <view class="frame-avatar"><oc-avatar character="{{character}}" size="medium" mood="{{item.mood}}" animated="{{false}}"></oc-avatar></view>
+          <view class="frame-index">{{item.index}}</view>
+        </view>
+        <view class="frame-caption">{{item.caption}}</view>
+      </view>
+    </view>
+    <view class="diary-narration"><text>角色旁白</text><view>{{currentDiary.content}}</view><view class="paper-sign">— {{character.name}}</view></view>
+    <view class="diary-actions"><button class="secondary-button" bindtap="generateDiary">重生成</button><button class="primary-button" open-type="share">分享小剧场</button></view>
+  </view>
+
+  <view wx:else class="empty-card pixel-panel">
+    <view class="empty-pixels"><text>▦</text><text>◆</text><text>▤</text></view>
+    <view class="empty-title">今天的小剧场还没开演</view>
+    <view class="empty-desc">{{memoryCount ? '会根据你确认过的经历，自动拼出四格日常。' : '先聊聊天，并确认一条值得带到明天的记忆。'}}</view>
+    <button class="primary-button" loading="{{generating}}" bindtap="generateDiary">{{generating ? '正在搭像素舞台…' : '生成今日四格小剧场 ▶'}}</button>
+    <button class="ghost-button" bindtap="goChat">先去和 {{character.name}} 聊聊</button>
+  </view>
+
+  <view wx:if="{{history.length}}" class="history-section">
+    <view class="history-heading"><view class="section-title">以前的存档</view><view class="history-count">{{history.length}} SAVE</view></view>
+    <view wx:for="{{history}}" wx:key="id" class="history-card pixel-panel"><view class="history-date">{{item.dateLabel}} · {{item.mood}}</view><view class="history-content">{{item.content}}</view></view>
+  </view>
+  <view class="privacy-footer">LOCAL ONLY · 日记与记忆保存在本机</view>
+</view>

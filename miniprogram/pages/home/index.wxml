@@ -1,0 +1,70 @@
+<view class="home page-shell">
+  <view class="pixel-cloud pixel-cloud--one"></view>
+  <view class="pixel-cloud pixel-cloud--two"></view>
+
+  <view class="topbar">
+    <view class="brand-block"><text class="brand-symbol">◆</text><view><text class="brand-name">PIXEL SOUL</text><text class="brand-sub">OC HOUSE · MVP</text></view></view>
+    <view class="online-chip"><text></text>ONLINE</view>
+  </view>
+
+  <view class="hero-copy">
+    <view class="pixel-label">CREATE · DRESS · LIVE</view>
+    <view class="hero-title"><text>拼出你的小人，</text><text class="hero-title-accent">住进你的小屋。</text></view>
+    <view class="hero-desc">创建像素 OC、使用统一骨架搭配头发与服装，让角色聊天、记住你，并把每天变成四格像素小剧场。</view>
+  </view>
+
+  <view class="house-preview pixel-panel">
+    <image class="preview-backdrop" src="{{currentScene.path}}" mode="aspectFill"></image>
+    <view class="preview-light"></view>
+    <view class="preview-character">
+      <oc-avatar character="{{displayCharacter}}" size="large" mood="happy"></oc-avatar>
+    </view>
+    <view class="preview-note preview-note--left">64×64<br/>索引矩阵</view>
+    <view class="preview-note preview-note--right">4 个<br/>可选场景</view>
+    <view class="scene-tag">{{hasCharacter ? character.name + ' 正在小屋里等你' : '一间空房，等你的 OC 入住'}}</view>
+  </view>
+
+  <view class="scene-select-block">
+    <view class="scene-select-head"><text>SCENE CLOSET</text><view>{{currentScene.name}} · {{currentScene.note}}</view></view>
+    <scroll-view class="scene-picker" scroll-x enhanced show-scrollbar="{{false}}">
+      <view class="scene-picker-row">
+        <view wx:for="{{scenes}}" wx:key="id" class="scene-choice {{currentScene.id === item.id ? 'is-active' : ''}}" data-id="{{item.id}}" bindtap="selectScene">
+          <image src="{{item.path}}" mode="aspectFill"></image>
+          <text>{{item.shortName}}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view wx:if="{{hasCharacter}}" class="save-card pixel-panel">
+    <view class="save-head">
+      <view><text class="save-kicker">HOUSE SAVE 01</text><view class="save-name">{{character.name}} 的像素小屋</view></view>
+      <view class="resident-count">{{residentCount}} / 3</view>
+    </view>
+    <view class="activity-box"><text>NOW</text><view>{{characterState.currentActivity}}</view><view class="activity-source">依据 · {{characterState.basedOn}}</view></view>
+    <view class="pixel-stats">
+      <view><text>{{canonCount}}</text><view>原典</view></view>
+      <view><text>{{pendingCount}}</text><view>待确认</view></view>
+      <view><text>{{consistencyScore}}%</text><view>一致性</view></view>
+    </view>
+    <button class="primary-button" bindtap="enterRoom">进入像素小屋 ▶</button>
+    <view class="button-grid">
+      <button class="secondary-button" bindtap="goPixelEditor">造型工坊</button>
+      <button class="secondary-button" bindtap="goCanon">角色原典</button>
+    </view>
+    <button class="ghost-button" bindtap="createCharacter">重新创建 OC</button>
+  </view>
+
+  <view wx:else class="start-actions">
+    <button class="primary-button" bindtap="createCharacter">创建我的像素 OC ▶</button>
+    <button class="secondary-button" bindtap="tryDemo">试玩小眠的像素小屋</button>
+  </view>
+
+  <view class="feature-marquee pixel-panel">
+    <view class="feature"><text>01</text><view>拼小人</view></view><view class="pixel-arrow">›</view>
+    <view class="feature"><text>02</text><view>做造型</view></view><view class="pixel-arrow">›</view>
+    <view class="feature"><text>03</text><view>养小屋</view></view><view class="pixel-arrow">›</view>
+    <view class="feature"><text>04</text><view>看剧场</view></view>
+  </view>
+  <view class="privacy-note">LOCAL SAVE · 角色原典与记忆由你确认</view>
+</view>

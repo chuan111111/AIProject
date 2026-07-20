@@ -1,0 +1,8 @@
+<view class="avatar-wrap avatar-wrap--{{size}}">
+  <view class="avatar avatar--{{size}} mood--{{mood}} {{animated ? 'is-animated' : ''}}">
+    <canvas id="avatarCanvas" type="2d" class="sprite-canvas {{canvasReady ? 'is-ready' : ''}}"></canvas>
+    <view class="sprite-fallback {{canvasReady ? 'is-hidden' : ''}}">
+      <image wx:for="{{appearanceLayers}}" wx:key="id" class="appearance-image" src="{{item.image}}" mode="scaleToFill" style="z-index: {{item.z}}; left: {{item.leftPercent}}%; top: {{item.topPercent}}%; width: {{item.widthPercent}}%; height: {{item.heightPercent}}%;"></image>
+    </view>
+  </view>
+</view>

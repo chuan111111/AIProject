@@ -1,0 +1,146 @@
+<view class="sprite-lab">
+  <view class="lab-header">
+    <view class="lab-kicker">COTTAGE DRESS-UP COLLECTION</view>
+    <view class="lab-title">少女像素换装图鉴</view>
+    <view class="lab-desc">64×64 PALETTE INDEX · WARM BROWN OUTLINE · MUTED CREAM COLORS</view>
+  </view>
+
+  <view class="catalog-board">
+    <view class="catalog-top">
+      <view class="catalog-section hair-catalog">
+        <view class="catalog-label"><text>✣</text><view>HAIR</view><text>✣</text></view>
+        <view class="hair-grid">
+          <view wx:for="{{hairTones}}" wx:key="id" class="catalog-item hair-item {{hairTone === item.id ? 'is-selected' : ''}}" data-tone="{{item.id}}" bindtap="selectHairTone">
+            <image src="{{item.preview}}" mode="aspectFit"></image>
+            <text>{{item.name}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="catalog-section base-catalog">
+        <view class="catalog-label"><text>✣</text><view>BASE</view><text>✣</text></view>
+        <view class="base-stage">
+          <view class="base-avatar">
+            <oc-avatar character="{{previewCharacter}}" size="large" mood="happy" animated="{{false}}" base-only="{{true}}"></oc-avatar>
+          </view>
+          <view class="ground-shadow"></view>
+        </view>
+        <view class="skin-dots">
+          <view wx:for="{{skinTones}}" wx:key="id" class="skin-dot {{skinTone === item.id ? 'is-selected' : ''}}" data-tone="{{item.id}}" bindtap="selectSkinTone">
+            <view style="background: {{item.swatches[0]}};"></view><text>{{item.name}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="catalog-section clothes-catalog">
+      <view class="catalog-label"><text>✣</text><view>CLOTHES</view><text>✣</text></view>
+      <view class="clothes-grid">
+        <view wx:for="{{outfits}}" wx:key="id" class="catalog-item clothes-item {{outfitId === item.id ? 'is-selected' : ''}}" data-outfit="{{item.id}}" bindtap="selectOutfit">
+          <image src="{{item.preview}}" mode="aspectFit"></image>
+          <text>{{item.name}}</text>
+          <view class="mini-swatches"><view wx:for="{{item.swatches}}" wx:for-item="color" wx:key="*this" style="background: {{color}};"></view></view>
+          <view class="template-code">{{item.template}}</view>
+        </view>
+      </view>
+      <view class="preset-title">COLOR PRESETS · 选择预设后仍可继续微调</view>
+      <view class="colorway-presets">
+        <view wx:for="{{colorways}}" wx:key="id" class="preset-chip {{colorway === item.id ? 'is-selected' : ''}}" data-colorway="{{item.id}}" bindtap="selectColorway">
+          <view class="preset-swatches"><view wx:for="{{item.swatches}}" wx:for-item="color" wx:key="*this" style="background: {{color}};"></view></view>
+          <text>{{item.name}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="template-customizer">
+      <view class="customizer-head">
+        <view><text>TEMPLATE CUSTOM</text><view>不改矩阵轮廓，只修改语义色板；阴影和高光自动联动</view></view>
+        <view class="customizer-template">{{currentOutfit.name}}</view>
+      </view>
+
+      <view class="channel-grid">
+        <view wx:for="{{customChannels}}" wx:key="index" class="channel-card {{selectedPaletteIndex === item.index ? 'is-selected' : ''}}" data-index="{{item.index}}" bindtap="selectPaletteChannel">
+          <view class="channel-color checker"><view style="background: {{item.color}};"></view></view>
+          <view><text>{{item.label}}</text><view>INDEX {{item.index}} · {{item.color}}</view></view>
+        </view>
+      </view>
+
+      <view class="custom-color-title">给当前通道选择颜色</view>
+      <view class="color-bank">
+        <view wx:for="{{customColors}}" wx:key="id" class="color-choice" data-color="{{item.color}}" bindtap="selectCustomColor">
+          <view style="background: {{item.color}};"></view><text>{{item.name}}</text>
+        </view>
+      </view>
+
+      <view class="hex-row">
+        <view class="hex-preview checker"><view style="background: {{customHex}};"></view></view>
+        <input value="{{customHex}}" maxlength="9" placeholder="#RRGGBB" bindinput="handleCustomHex" bindconfirm="applyCustomHex" />
+        <button bindtap="applyCustomHex">应用颜色</button>
+      </view>
+
+      <view class="custom-actions">
+        <button wx:if="{{!embroideryHidden}}" bindtap="hideEmbroidery">隐藏刺绣</button>
+        <button wx:else bindtap="restoreEmbroidery">恢复刺绣</button>
+        <button bindtap="resetCustomPalette">恢复当前预设</button>
+      </view>
+    </view>
+
+    <view class="catalog-bottom">
+      <view class="slot-note"><text>HEADWEAR</text><view>独立前景槽位</view></view>
+      <view class="slot-note"><text>SHOES / LEGWEAR</text><view>固定脚底线 y=61</view></view>
+      <view class="slot-note"><text>ACCESSORIES</text><view>完整 64×64 图层</view></view>
+    </view>
+  </view>
+
+  <view class="look-strip">
+    <view>
+      <text>{{currentOutfit.name}}</text>
+      <view>{{spriteSpec.canvasWidth}}×{{spriteSpec.canvasHeight}} · {{layerCount}} LAYERS</view>
+    </view>
+    <button class="guide-button {{showGuides ? 'is-active' : ''}}" bindtap="toggleGuides">{{showGuides ? '收起坐标' : '检查锚点'}}</button>
+  </view>
+
+  <view wx:if="{{showGuides}}" class="matrix-ledger">
+    <view class="ledger-head"><text>MATRIX SPEC</text><view>origin (0,0) · center x=32</view></view>
+    <view class="anchor-list">
+      <view wx:for="{{anchors}}" wx:key="name"><text>{{item.name}}</text><view>[{{item.x}}, {{item.y}}]</view></view>
+    </view>
+    <view class="palette-columns">
+      <view>
+        <text>BODY</text>
+        <view class="palette-row"><view wx:for="{{bodyPalette}}" wx:key="index" style="background: {{item.color}};"></view></view>
+      </view>
+      <view>
+        <text>HAIR</text>
+        <view class="palette-row"><view wx:for="{{hairPalette}}" wx:key="index" style="background: {{item.color}};"></view></view>
+      </view>
+      <view>
+        <text>CLOTHES</text>
+        <view class="palette-row"><view wx:for="{{palette}}" wx:key="index" style="background: {{item.color}};"></view></view>
+      </view>
+    </view>
+    <view class="layer-list">
+      <view wx:for="{{layers}}" wx:key="id" class="layer-item">
+        <text>{{item.id}}</text><view>{{item.label}} · Z={{item.zIndex}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="proof-panel">
+    <view class="catalog-label"><text>✣</text><view>PIXEL MATRIX</view><text>✣</text></view>
+    <view class="proof-row">
+      <view><image src="{{currentOutfit.preview}}" mode="aspectFit"></image><text>模板原始矩阵</text></view>
+      <view class="proof-equal">＝</view>
+      <view>
+        <view class="proof-live-avatar"><view><oc-avatar character="{{previewCharacter}}" size="large" mood="happy" animated="{{false}}"></oc-avatar></view></view>
+        <text>自定义实时穿着效果</text>
+      </view>
+    </view>
+    <view class="proof-copy">无抗锯齿 · 无自动裁切 · 主色、高光与阴影保持索引联动</view>
+  </view>
+
+  <view class="save-dock">
+    <view><text>SAVE LOOK</text><view>保存身体、发型、服装和语义调色板</view></view>
+    <button bindtap="saveAppearance">保存造型</button>
+  </view>
+</view>

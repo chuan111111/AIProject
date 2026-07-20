@@ -1,0 +1,106 @@
+<view class="chat-page">
+  <view class="persona-bar">
+    <oc-avatar character="{{character}}" size="small" mood="{{mood}}" animated="{{false}}"></oc-avatar>
+    <view class="persona-copy">
+      <view class="persona-name">{{character.name}}</view>
+      <view class="persona-status"><text></text>{{sending ? 'Qwen 正在检索原典与记忆…' : aiLabel}}</view>
+    </view>
+    <view class="memory-pill" bindtap="goCanon"><text>🔒</text>{{canonCount}} 条原典</view>
+  </view>
+
+  <scroll-view class="message-list" scroll-y enhanced show-scrollbar="{{false}}" scroll-into-view="{{scrollIntoView}}">
+    <view class="day-divider"><text>PIXEL HOUSE · 角色身份连续性模式</text></view>
+    <view class="context-card">
+      <view class="context-label">{{aiLabel}} · IDENTITY GUARD {{consistencyScore}}%</view>
+      <view class="context-text">每条回复先检索锁定原典与已确认记忆，再进行一致性检查</view>
+    </view>
+
+    <view wx:for="{{messages}}" wx:key="id" class="message-row message-row--{{item.role}}">
+      <view wx:if="{{item.role === 'assistant'}}" class="mini-avatar">
+        <oc-avatar character="{{character}}" size="small" mood="{{item.emotion || 'happy'}}" animated="{{false}}"></oc-avatar>
+      </view>
+      <view class="message-content">
+        <view class="bubble bubble--{{item.role}}">{{item.content}}</view>
+        <view class="message-meta">
+          <text>{{item.timeLabel}}</text>
+          <view wx:if="{{item.role === 'assistant'}}" class="evidence-button" data-id="{{item.id}}" bindtap="toggleExplanation">为什么这样说？</view>
+          <view wx:if="{{item.role === 'assistant'}}" class="ooc-button" data-id="{{item.id}}" bindtap="openCorrection">{{item.corrected ? '已沉淀新原典' : '纠正 OOC'}}</view>
+        </view>
+
+        <view wx:if="{{item.showExplanation}}" class="evidence-panel">
+          <view class="evidence-head">
+            <view class="check-icon">✓</view>
+            <view><text>{{item.checkLabel}}</text><text class="evidence-score">一致性 {{item.consistencyScore}}% · OOC 风险 {{item.oocRisk}}</text></view>
+          </view>
+          <view class="reasoning">{{item.reasoning}}</view>
+          <view class="model-source">生成引擎 · {{item.model || '离线人格引擎'}}</view>
+          <view wx:if="{{item.usedCanon.length}}" class="evidence-group">
+            <view class="evidence-label">使用的角色原典</view>
+            <view wx:for="{{item.usedCanon}}" wx:for-item="evidence" wx:key="id" class="evidence-item"><text>🔒 {{evidence.category}}</text><view>{{evidence.content}}</view></view>
+          </view>
+          <view wx:if="{{item.usedMemories.length}}" class="evidence-group">
+            <view class="evidence-label">使用的已确认记忆</view>
+            <view wx:for="{{item.usedMemories}}" wx:for-item="memory" wx:key="id" class="evidence-item evidence-item--memory"><text>✓ 主人已确认</text><view>{{memory.content}}</view></view>
+          </view>
+          <view wx:if="{{!item.evidenceCount}}" class="no-evidence">本条没有使用长期记忆，也没有创造新经历。</view>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{sending}}" class="message-row message-row--assistant">
+      <view class="mini-avatar"><oc-avatar character="{{character}}" size="small" mood="thinking" animated="{{false}}"></oc-avatar></view>
+      <view class="typing-wrap"><view class="typing-bubble"><text></text><text></text><text></text></view><view class="checking-text">检索原典 → 检查冲突 → 生成回应</view></view>
+    </view>
+
+    <view wx:for="{{pendingProposals}}" wx:key="id" class="memory-proposal">
+      <view class="proposal-top"><view class="proposal-icon">✦</view><view><text>{{character.name}} 想记住</text><text class="proposal-status">尚未写入长期记忆</text></view></view>
+      <view wx:if="{{editingProposalId === item.id}}" class="proposal-edit">
+        <textarea auto-height maxlength="80" value="{{proposalDraft}}" bindinput="handleProposalInput"></textarea>
+        <button bindtap="saveEditedProposal">修改后允许记住</button>
+      </view>
+      <view wx:else>
+        <view class="proposal-text">“{{item.content}}”</view>
+        <view class="proposal-actions">
+          <button class="approve" data-id="{{item.id}}" data-action="approved" bindtap="decideProposal">允许记住</button>
+          <button data-id="{{item.id}}" data-action="today" bindtap="decideProposal">仅今天</button>
+          <button data-id="{{item.id}}" data-action="edit" bindtap="decideProposal">修改</button>
+          <button data-id="{{item.id}}" data-action="rejected" bindtap="decideProposal">不要记</button>
+        </view>
+      </view>
+    </view>
+    <view id="chat-bottom" class="chat-bottom-anchor"></view>
+  </scroll-view>
+
+  <view class="composer-wrap">
+    <scroll-view class="suggestions" scroll-x show-scrollbar="{{false}}">
+      <view class="suggestion-row">
+        <view class="suggestion suggestion--test" data-text="你不是最喜欢在人多的地方唱歌吗？" bindtap="useSuggestion">⚡ 身份测试</view>
+        <view class="suggestion" data-text="我明天要交论文，有点紧张" bindtap="useSuggestion">创建待确认记忆</view>
+        <view class="suggestion" data-text="你还记得我说过什么吗？" bindtap="useSuggestion">检查已确认记忆</view>
+      </view>
+    </scroll-view>
+    <view class="composer">
+      <textarea class="chat-input" auto-height maxlength="200" fixed confirm-type="send" placeholder="和 {{character.name}} 说点什么…" value="{{inputValue}}" bindinput="handleInput" bindconfirm="sendMessage"></textarea>
+      <button class="send-button {{inputValue ? 'is-ready' : ''}}" bindtap="sendMessage">↑</button>
+    </view>
+    <view class="demo-tip">回复可解释 · 记忆需确认 · OOC 可沉淀为新原典</view>
+  </view>
+
+  <view wx:if="{{correctionVisible}}" class="correction-mask" catchtap="closeCorrection">
+    <view class="correction-sheet" catchtap="noop">
+      <view class="sheet-handle"></view>
+      <view class="sheet-kicker">SCULPT THE CHARACTER</view>
+      <view class="sheet-title">哪里不像 {{character.name}}？</view>
+      <view class="sheet-desc">这次纠正会成为一条新的锁定原典，而不只是一次差评。</view>
+      <view class="reason-grid">
+        <view wx:for="{{correctionReasons}}" wx:key="value" class="reason-option {{correctionReason === item.value ? 'is-selected' : ''}}" data-value="{{item.value}}" bindtap="selectCorrectionReason">{{item.label}}<text>{{correctionReason === item.value ? '✓' : ''}}</text></view>
+      </view>
+      <view wx:if="{{correctionReason}}" class="correction-draft">
+        <view class="draft-label">建议沉淀为原典</view>
+        <textarea auto-height maxlength="100" value="{{correctionDraft}}" bindinput="handleCorrectionInput"></textarea>
+      </view>
+      <button class="primary-button" bindtap="confirmCorrection">锁定新原典并重写</button>
+      <button class="ghost-button" bindtap="closeCorrection">取消</button>
+    </view>
+  </view>
+</view>

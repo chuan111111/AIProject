@@ -1,0 +1,47 @@
+<view class="room-page">
+  <view class="room-header">
+    <view class="room-title-wrap"><view class="status-dot"></view><view><view class="room-name">{{character.name}} 的像素小屋</view><view class="room-status">HOUSE SAVE · {{residentCount}} / 3 位住户</view></view></view>
+    <view class="pixel-lock" bindtap="goCanon">LOCK</view>
+  </view>
+
+  <scroll-view class="room-scene-picker" scroll-x enhanced show-scrollbar="{{false}}">
+    <view class="room-scene-picker-row">
+      <view wx:for="{{scenes}}" wx:key="id" class="room-scene-choice {{currentScene.id === item.id ? 'is-active' : ''}}" data-id="{{item.id}}" bindtap="selectScene">
+        <image src="{{item.path}}" mode="aspectFill"></image><text>{{item.shortName}}</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class="room-scene pixel-panel">
+    <image class="room-backdrop" src="{{currentScene.path}}" mode="aspectFill"></image>
+    <view class="scene-grid"></view>
+    <view class="speech-bubble"><text>{{speech}}</text><view class="scene-source">依据 · {{characterState.basedOn}}</view><view class="bubble-tail"></view></view>
+
+    <view class="residents resident-count--{{residentCount}}">
+      <view wx:for="{{residents}}" wx:key="id" class="resident resident--{{index}}" data-index="{{index}}" bindtap="touchResident">
+        <oc-avatar character="{{item}}" size="{{residentCount === 1 ? 'large' : 'medium'}}" mood="{{index === 0 ? mood : 'happy'}}"></oc-avatar>
+        <view class="resident-name">{{item.name}}{{item.guest ? ' · 访客' : ''}}</view>
+      </view>
+      <view wx:for="{{emptySlots}}" wx:key="*this" class="empty-slot" bindtap="inviteResident"><text>＋</text><view>邀请住户</view></view>
+    </view>
+    <view class="scene-tip">点击小人互动 · 点击空位邀请住户</view>
+  </view>
+
+  <view class="quick-actions pixel-panel">
+    <view class="quick-action" bindtap="goChat"><view class="quick-icon">···</view><text>聊天</text></view>
+    <view class="quick-action" bindtap="goPixelEditor"><view class="quick-icon">▦</view><text>造型工坊</text></view>
+    <view class="quick-action" bindtap="giveSnack"><view class="quick-icon">◆</view><text>投喂</text></view>
+    <view class="quick-action" bindtap="goDiary"><view class="quick-icon">▤</view><text>小剧场</text></view>
+  </view>
+
+  <view class="story-panel pixel-panel">
+    <view class="panel-heading"><view><view class="pixel-label">TODAY IN HOUSE</view><view class="section-title">今天小屋里发生了什么？</view><view class="panel-subtitle">{{canonCount}} 条原典 · 一致性 {{consistencyScore}}%</view></view><view class="more-home" bindtap="goHome">HOME</view></view>
+    <view class="feature-grid">
+      <view class="feature-card" bindtap="goChat"><view class="feature-number">01</view><view class="feature-copy"><view class="feature-title">和 {{character.name}} 聊聊</view><view class="feature-desc">Qwen 按人设和已确认记忆回应</view></view><view class="feature-arrow">▶</view></view>
+      <view class="feature-card feature-card--warm" bindtap="goPixelEditor"><view class="feature-number">02</view><view class="feature-copy"><view class="feature-title">设计一整套像素造型</view><view class="feature-desc">服装使用 64×64 索引矩阵，并支持语义调色板换色</view></view><view class="feature-arrow">▶</view></view>
+      <view class="feature-card feature-card--green" bindtap="goDiary"><view class="feature-number">03</view><view class="feature-copy"><view class="feature-title">生成今日四格小剧场</view><view class="feature-desc">把确认过的经历变成像素日记</view></view><view class="feature-arrow">▶</view></view>
+    </view>
+    <view wx:if="{{memories.length}}" class="memory-strip"><text>MEMORY</text><view>{{memories[0].content}}</view></view>
+    <view class="room-footer-actions"><button class="secondary-button" bindtap="goCanon">管理角色原典</button><button class="secondary-button" bindtap="runIdentityTest">身份测试</button></view>
+  </view>
+</view>

@@ -1,0 +1,119 @@
+<view class="create-page page-shell">
+  <view class="create-header">
+    <view>
+      <view class="eyebrow">PIXEL CHARACTER CARD</view>
+      <view class="page-title">拼出你的 OC。</view>
+      <view class="page-desc">先导入人设、锁定角色原典，再为 TA 选择第一套像素配色。</view>
+    </view>
+    <view class="preview-bubble">
+      <oc-avatar character="{{form}}" size="small" mood="happy"></oc-avatar>
+    </view>
+  </view>
+
+  <view class="import-card card">
+    <view class="import-top">
+      <view><view class="import-step">STEP 01 · 导入设定</view><view class="import-title">TA 原本是什么样的人？</view></view>
+      <view class="sample-button" bindtap="fillSample">填入示例</view>
+    </view>
+    <textarea class="profile-input" maxlength="800" placeholder="粘贴人物小传、约稿文字、世界观、关系设定或典型对话……" value="{{form.rawProfile}}" data-field="rawProfile" bindinput="handleInput"></textarea>
+    <button class="extract-button" loading="{{extracting}}" bindtap="extractCanon"><text wx:if="{{!extracting}}">✦</text> {{extracting ? 'Qwen 正在阅读设定…' : '用 Qwen3.7-Plus 提取角色锚点'}}</button>
+    <view wx:if="{{hasExtracted}}" class="extracted-panel">
+      <view class="extracted-head"><text>STEP 02 · 提取完成</text><text>{{extractedCanon.length}} 条</text></view>
+      <view class="extraction-engine">{{extractionEngine}}</view>
+      <view wx:for="{{extractedCanon}}" wx:key="id" class="extracted-item">
+        <view class="extracted-type extracted-type--{{item.type}}">{{item.typeLabel}}</view>
+        <view class="extracted-copy"><text>{{item.category}}</text><view>{{item.content}}</view></view>
+        <view class="extracted-lock">{{item.locked ? '🔒' : '○'}}</view>
+      </view>
+      <view class="extracted-note">保存人设后，不可改变项会正式锁定；成长特征与临时状态仍需你确认。</view>
+    </view>
+  </view>
+
+  <view class="form-card card">
+    <view class="form-section">
+      <view class="section-head">
+        <view class="section-number">03</view>
+        <view><view class="section-title">基础信息</view><view class="section-hint">先从名字和关系开始</view></view>
+      </view>
+
+      <view class="field">
+        <view class="field-label">名字 <text>*</text></view>
+        <input class="text-input" maxlength="12" placeholder="例如：小眠" value="{{form.name}}" data-field="name" bindinput="handleInput" />
+      </view>
+      <view class="field">
+        <view class="field-label">TA 怎么称呼你</view>
+        <input class="text-input" maxlength="12" placeholder="例如：你、主人、阿澄" value="{{form.callName}}" data-field="callName" bindinput="handleInput" />
+      </view>
+      <view class="field">
+        <view class="field-label">你们的关系 <text>*</text></view>
+        <textarea class="text-area" maxlength="80" auto-height placeholder="例如：我亲手创造的小人，是最懂我的朋友" value="{{form.relationship}}" data-field="relationship" bindinput="handleInput"></textarea>
+      </view>
+    </view>
+
+    <view class="divider"></view>
+
+    <view class="form-section">
+      <view class="section-head">
+        <view class="section-number">04</view>
+        <view><view class="section-title">性格锚点</view><view class="section-hint">最多选择 3 个</view></view>
+      </view>
+      <view class="chips">
+        <view wx:for="{{personalityOptions}}" wx:key="value" class="chip {{item.selected ? 'is-selected' : ''}}" data-value="{{item.value}}" bindtap="togglePersonality">
+          <text class="chip-check">{{item.selected ? '✓' : '+'}}</text>{{item.value}}
+        </view>
+      </view>
+    </view>
+
+    <view class="divider"></view>
+
+    <view class="form-section">
+      <view class="section-head">
+        <view class="section-number">05</view>
+        <view><view class="section-title">说话方式</view><view class="section-hint">决定 TA 回应你的感觉</view></view>
+      </view>
+      <view class="style-grid">
+        <view wx:for="{{speakingOptions}}" wx:key="*this" class="style-option {{form.speakingStyle === item ? 'is-selected' : ''}}" data-value="{{item}}" bindtap="selectSpeaking">
+          <view class="radio-dot"></view><text>{{item}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="divider"></view>
+
+    <view class="form-section">
+      <view class="section-head">
+        <view class="section-number">06</view>
+        <view><view class="section-title">服装调色板</view><view class="section-hint">保存后可去造型工坊逐索引更换主色、辅色与强调色</view></view>
+      </view>
+      <view class="avatar-grid">
+        <view wx:for="{{avatarOptions}}" wx:key="value" class="avatar-option avatar-option--{{item.value}} {{form.avatarStyle === item.value ? 'is-selected' : ''}}" data-value="{{item.value}}" bindtap="selectAvatar">
+          <view class="color-dot"><view></view></view>
+          <text>{{item.label}}</text>
+          <text class="selected-mark">{{form.avatarStyle === item.value ? '✓' : ''}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="divider"></view>
+
+    <view class="form-section">
+      <view class="section-head">
+        <view class="section-number">07</view>
+        <view><view class="section-title">喜欢与边界</view><view class="section-hint">降低 OOC 的关键</view></view>
+      </view>
+      <view class="field">
+        <view class="field-label">TA 喜欢什么</view>
+        <input class="text-input" maxlength="60" placeholder="草莓牛奶、晒太阳、被摸头" value="{{form.likes}}" data-field="likes" bindinput="handleInput" />
+      </view>
+      <view class="field">
+        <view class="field-label">TA 绝不会怎么说或怎么做</view>
+        <textarea class="text-area" maxlength="100" auto-height placeholder="例如：不说教，不否认我的情绪" value="{{form.forbidden}}" data-field="forbidden" bindinput="handleInput"></textarea>
+      </view>
+    </view>
+  </view>
+
+  <view class="save-area">
+    <view class="save-note"><text>🔒</text> 保存即代表由你确认并锁定角色原典</view>
+    <button class="primary-button" bindtap="saveCharacter">锁定原典，住进像素小屋 ▶</button>
+  </view>
+</view>

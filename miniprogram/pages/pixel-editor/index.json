@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "少女像素换装图鉴",
+  "navigationBarBackgroundColor": "#F4EEE3",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "oc-avatar": "/components/oc-avatar/index"
+  }
+}
