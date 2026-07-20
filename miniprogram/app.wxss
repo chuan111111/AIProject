@@ -1,0 +1,505 @@
+page {
+  min-height: 100%;
+  background: #f6ead8;
+  color: #37283e;
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 28rpx;
+}
+
+view,
+text,
+input,
+textarea,
+button,
+scroll-view {
+  box-sizing: border-box;
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  line-height: 1.2;
+  border-radius: 8rpx;
+}
+
+button::after {
+  border: 0;
+}
+
+.page-shell {
+  min-height: 100vh;
+  padding: 36rpx 28rpx calc(48rpx + env(safe-area-inset-bottom));
+}
+
+.eyebrow {
+  color: #80566f;
+  font-size: 22rpx;
+  font-weight: 700;
+  letter-spacing: 3rpx;
+  text-transform: uppercase;
+}
+
+.page-title {
+  margin-top: 14rpx;
+  font-size: 52rpx;
+  line-height: 1.18;
+  font-weight: 900;
+  letter-spacing: -1rpx;
+  text-shadow: 4rpx 4rpx 0 #ead2b5;
+}
+
+.page-desc {
+  margin-top: 16rpx;
+  color: #776577;
+  line-height: 1.75;
+}
+
+.card {
+  background: #fff8e9;
+  border: 4rpx solid #4d3456;
+  border-radius: 8rpx;
+  box-shadow: 8rpx 8rpx 0 #c79b81;
+}
+
+.primary-button,
+.secondary-button,
+.ghost-button {
+  min-height: 96rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.primary-button {
+  color: #fff;
+  background: #76528f;
+  border: 4rpx solid #3f2d4a;
+  box-shadow: 0 8rpx 0 #4b335d;
+}
+
+.secondary-button {
+  color: #5c3f69;
+  background: #efd8bb;
+  border: 4rpx solid #70506e;
+  box-shadow: 0 6rpx 0 #bd8f76;
+}
+
+.ghost-button {
+  min-height: 76rpx;
+  color: #725d72;
+  background: transparent;
+  font-size: 26rpx;
+}
+
+.section-title {
+  font-size: 30rpx;
+  line-height: 1.3;
+  font-weight: 900;
+}
+
+.muted {
+  color: #8d7580;
+}
+
+.pixel-label {
+  display: inline-flex;
+  padding: 7rpx 11rpx;
+  color: #fff9e9;
+  background: #4d3456;
+  border: 3rpx solid #2f2237;
+  font-size: 18rpx;
+  font-weight: 800;
+  letter-spacing: 2rpx;
+}
+
+.pixel-panel {
+  background: #fff8e9;
+  border: 4rpx solid #4d3456;
+  box-shadow: 8rpx 8rpx 0 #c79b81;
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Original cozy farming-RPG visual system */
+page {
+  background: #e8c985;
+  color: #3b261f;
+  font-family: "Courier New", "PingFang SC", monospace;
+}
+
+button {
+  border-radius: 2rpx;
+}
+
+.page-shell {
+  background-color: #edd49a;
+  background-image: linear-gradient(rgba(105, 72, 42, .1) 2rpx, transparent 2rpx), linear-gradient(90deg, rgba(105, 72, 42, .1) 2rpx, transparent 2rpx);
+  background-size: 32rpx 32rpx;
+}
+
+.eyebrow {
+  color: #55704a;
+  text-shadow: 2rpx 2rpx 0 #f7e4aa;
+}
+
+.page-title {
+  color: #4b2d24;
+  text-shadow: 4rpx 4rpx 0 #d7aa63;
+}
+
+.page-desc,
+.muted {
+  color: #755b46;
+}
+
+.card,
+.pixel-panel {
+  background: #f8e5b2;
+  border: 5rpx solid #5b382b;
+  border-radius: 2rpx;
+  box-shadow: 8rpx 8rpx 0 #9e633f, inset 0 0 0 3rpx #fff0bf;
+}
+
+.primary-button {
+  color: #fff4cf;
+  background: #5d854f;
+  border: 5rpx solid #304b32;
+  box-shadow: 0 8rpx 0 #3e633d;
+  text-shadow: 2rpx 2rpx 0 #30452e;
+}
+
+.secondary-button {
+  color: #4a2e24;
+  background: #e5aa52;
+  border: 5rpx solid #70452d;
+  box-shadow: 0 7rpx 0 #a96838;
+}
+
+.ghost-button {
+  color: #654734;
+}
+
+.pixel-label {
+  color: #fff1c2;
+  background: #76503a;
+  border: 4rpx solid #432a22;
+  box-shadow: 4rpx 4rpx 0 #bd7a45;
+}
+
+.section-title {
+  color: #4a2d24;
+}
+
+/* Whole-app farming-RPG palette. Page files keep their layout; these rules unify the world. */
+.room-page,
+.chat-page,
+.create-page,
+.canon-page,
+.diary-page,
+.editor-page {
+  color: #3b261f !important;
+  background-color: #e8c985 !important;
+  background-image: linear-gradient(rgba(103, 73, 40, .08) 2rpx, transparent 2rpx), linear-gradient(90deg, rgba(103, 73, 40, .08) 2rpx, transparent 2rpx) !important;
+  background-size: 32rpx 32rpx !important;
+}
+
+.persona-bar,
+.composer-wrap,
+.quick-actions {
+  background: #f0d28e !important;
+  border-color: #3b261f !important;
+  box-shadow: 0 6rpx 0 #6a442b !important;
+}
+
+.form-card,
+.import-card,
+.extracted-panel,
+.health-card,
+.proposal-card,
+.canon-list,
+.add-canon,
+.comic-wrap,
+.empty-card,
+.history-card,
+.story-panel,
+.feature-card,
+.context-card,
+.evidence-panel,
+.memory-proposal,
+.correction-sheet,
+.workbench,
+.template-section,
+.palette,
+.tool-row {
+  background: #fff0c5 !important;
+  border-color: #3b261f !important;
+  box-shadow: 6rpx 6rpx 0 #6a442b !important;
+}
+
+.room-name,
+.persona-name,
+.extracted-head,
+.health-score,
+.history-date,
+.palette-title,
+.workbench-head {
+  color: #3b4f27 !important;
+}
+
+.room-status,
+.persona-status,
+.page-desc,
+.panel-subtitle,
+.feature-desc,
+.history-content,
+.privacy-footer,
+.save-note {
+  color: #765332 !important;
+}
+
+.pixel-lock,
+.more-home,
+.quick-icon,
+.memory-pill,
+.send-button.is-ready,
+.proposal-actions .approve,
+.proposal-edit button,
+.extract-button,
+.sample-button,
+.add-row button,
+.upload-button,
+.mood-chip,
+.part-tab.is-active,
+.template-card.is-active,
+.outfit-card.is-active,
+.reason-option.is-selected {
+  color: #fff4cf !important;
+  background: #5b7b3a !important;
+  border-color: #3b261f !important;
+  box-shadow: 4rpx 4rpx 0 #3b261f !important;
+}
+
+.room-scene,
+.header-preview,
+.lock-orbit,
+.template-preview {
+  background-color: #6f9146 !important;
+  border-color: #3b261f !important;
+  box-shadow: 7rpx 7rpx 0 #6a442b !important;
+}
+
+.scene-grid {
+  display: none !important;
+}
+
+.speech-bubble,
+.bubble--assistant,
+.composer,
+.profile-input,
+.text-input,
+.text-area,
+.add-row input,
+.correction-draft textarea {
+  color: #3b261f !important;
+  background: #fff8df !important;
+  border-color: #6a442b !important;
+}
+
+.bubble--user {
+  color: #fff7d9 !important;
+  background: #5b7b3a !important;
+  border-color: #3b261f !important;
+  box-shadow: 5rpx 5rpx 0 #3b261f !important;
+}
+
+.resident-name,
+.scene-tip,
+.comic-narration,
+.diary-narration {
+  color: #fff3c9 !important;
+  background: #4c3326 !important;
+  border-color: #e0aa4f !important;
+}
+
+.empty-slot,
+.suggestion,
+.reason-option,
+.chip,
+.style-option,
+.avatar-option,
+.template-card,
+.outfit-card,
+.source-item,
+.source-card,
+.memory-strip {
+  color: #4a3224 !important;
+  background: #f4d58a !important;
+  border-color: #6a442b !important;
+}
+
+.chip.is-selected,
+.style-option.is-selected,
+.avatar-option.is-selected,
+.outfit-card.is-selected {
+  color: #fff7d9 !important;
+  background: #5b7b3a !important;
+  border-color: #3b261f !important;
+}
+
+.section-number,
+.feature-number,
+.count-badge,
+.type-badge--fixed,
+.frame-index {
+  color: #fff3c9 !important;
+  background: #7d4b2f !important;
+  border-color: #3b261f !important;
+}
+
+.type-badge--grow,
+.canon-lock--grow,
+.evidence-panel {
+  color: #31512f !important;
+  background: #dce7ba !important;
+  border-color: #4f6c38 !important;
+}
+
+.health-check,
+.canon-lock,
+.lock-badge,
+.selected-mark {
+  color: #fff3c9 !important;
+  background: #5b7b3a !important;
+  border-color: #3b261f !important;
+}
+
+.comic-frame {
+  background: #f4d58a !important;
+  border-color: #3b261f !important;
+}
+
+.frame-scene {
+  background: #92a95a !important;
+  border-color: #3b261f !important;
+}
+
+.scene--snack { background: #d7a653 !important; }
+.scene--talk { background: #83a35c !important; }
+.scene--night { background: #485a67 !important; }
+
+.pixel-canvas,
+.source-canvas {
+  background: #fff8df !important;
+  border-color: #3b261f !important;
+  box-shadow: 6rpx 6rpx 0 #6a442b !important;
+}
+
+.pixel-cell {
+  border-color: rgba(106, 68, 43, .35) !important;
+}
+
+.custom-color-row,
+.suggestion--test,
+.secondary-button {
+  color: #4a3224 !important;
+  background: #e7b958 !important;
+  border-color: #6a442b !important;
+}
+
+/* Selectable scene wardrobe */
+.scene-select-block {
+  margin-top: 18rpx;
+  padding: 18rpx 0 16rpx;
+  position: relative;
+  z-index: 3;
+  background: #fff2d4;
+  border: 4rpx solid #6a442b;
+  box-shadow: 6rpx 6rpx 0 #d38c68;
+}
+
+.scene-select-head {
+  padding: 0 18rpx 14rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.scene-select-head text {
+  color: #a13f68;
+  font-size: 17rpx;
+  font-weight: 900;
+  letter-spacing: 2rpx;
+}
+
+.scene-select-head view {
+  color: #765332;
+  font-size: 16rpx;
+}
+
+.scene-picker,
+.room-scene-picker {
+  width: 100%;
+  white-space: nowrap;
+}
+
+.scene-picker-row,
+.room-scene-picker-row {
+  padding: 0 16rpx 6rpx;
+  display: inline-flex;
+  gap: 14rpx;
+}
+
+.scene-choice,
+.room-scene-choice {
+  width: 124rpx;
+  flex: none;
+  overflow: hidden;
+  color: #684738;
+  background: #f6dcae;
+  border: 4rpx solid #9a6a50;
+  box-shadow: 3rpx 3rpx 0 #9a6a50;
+}
+
+.scene-choice image,
+.room-scene-choice image {
+  width: 100%;
+  height: 92rpx;
+  display: block;
+  image-rendering: pixelated;
+}
+
+.scene-choice text,
+.room-scene-choice text {
+  padding: 8rpx 4rpx;
+  display: block;
+  text-align: center;
+  font-size: 17rpx;
+  font-weight: 900;
+}
+
+.scene-choice.is-active,
+.room-scene-choice.is-active {
+  color: #fff7e3;
+  background: #a94d74;
+  border-color: #58384f;
+  box-shadow: 4rpx 4rpx 0 #58384f;
+}
+
+.room-scene-picker {
+  margin: 4rpx 0 18rpx;
+  padding: 10rpx 0;
+  background: #f5d9ad;
+  border: 4rpx solid #6a442b;
+}
+
+.room-scene-choice {
+  width: 112rpx;
+}
+
+.room-scene-choice image {
+  height: 76rpx;
+}
