@@ -1,0 +1,96 @@
+{
+  "version": "3.0",
+  "id": "body_chibi_64_v2",
+  "palette": [
+    {
+      "index": 0,
+      "symbol": "T",
+      "role": "transparent",
+      "color": "#00000000",
+      "editable": false
+    },
+    {
+      "index": 1,
+      "symbol": "O",
+      "role": "body_outline",
+      "color": "#69473D",
+      "editable": false
+    },
+    {
+      "index": 2,
+      "symbol": "K",
+      "role": "skin_main",
+      "color": "#F2C6A8",
+      "editable": true
+    },
+    {
+      "index": 3,
+      "symbol": "S",
+      "role": "skin_shadow",
+      "color": "#D99F86",
+      "editable": false,
+      "linkedTo": 2,
+      "linkedTone": -0.16
+    },
+    {
+      "index": 4,
+      "symbol": "B",
+      "role": "skin_blush",
+      "color": "#EAA29B",
+      "editable": true
+    },
+    {
+      "index": 5,
+      "symbol": "E",
+      "role": "eye",
+      "color": "#477B8C",
+      "editable": true
+    },
+    {
+      "index": 6,
+      "symbol": "L",
+      "role": "skin_highlight",
+      "color": "#FFE0C7",
+      "editable": false,
+      "linkedTo": 2,
+      "linkedTone": 0.16
+    },
+    {
+      "index": 7,
+      "symbol": "D",
+      "role": "eye_deep",
+      "color": "#294B58",
+      "editable": false,
+      "linkedTo": 5,
+      "linkedTone": -0.34
+    },
+    {
+      "index": 8,
+      "symbol": "G",
+      "role": "eye_glint",
+      "color": "#F4FAF2",
+      "editable": false
+    },
+    {
+      "index": 9,
+      "symbol": "U",
+      "role": "base_underwear",
+      "color": "#F4E8D5",
+      "editable": false
+    },
+    {
+      "index": 10,
+      "symbol": "W",
+      "role": "base_underwear_shadow",
+      "color": "#D7C2AE",
+      "editable": false
+    },
+    {
+      "index": 11,
+      "symbol": "C",
+      "role": "base_underwear_lace",
+      "color": "#FFF4E3",
+      "editable": false
+    }
+  ]
+}

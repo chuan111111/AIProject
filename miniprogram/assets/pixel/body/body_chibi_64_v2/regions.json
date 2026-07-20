@@ -1,0 +1,55 @@
+{
+  "version": "3.0",
+  "id": "body_chibi_64_v2",
+  "coordinateSystem": "top-left, x-right, y-down",
+  "boundsFormat": "[x, y, width, height]",
+  "editableRegions": [
+    {
+      "id": "skin",
+      "type": "palette_recolor",
+      "paletteIndex": 2,
+      "bounds": [
+        20,
+        7,
+        25,
+        55
+      ],
+      "description": "身体、手臂与双腿肤色"
+    },
+    {
+      "id": "blush",
+      "type": "palette_recolor",
+      "paletteIndex": 4,
+      "bounds": [
+        25,
+        22,
+        14,
+        1
+      ],
+      "description": "面部腮红"
+    },
+    {
+      "id": "eyes",
+      "type": "palette_recolor",
+      "paletteIndex": 5,
+      "bounds": [
+        27,
+        19,
+        10,
+        3
+      ],
+      "description": "眼睛颜色"
+    }
+  ],
+  "lockedPaletteIndices": [
+    0,
+    1,
+    3,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ]
+}

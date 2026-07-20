@@ -1,0 +1,93 @@
+{
+  "version": "3.0",
+  "id": "dress_berry_cream_001",
+  "palette": [
+    {
+      "index": 0,
+      "symbol": "T",
+      "role": "transparent",
+      "color": "#00000000",
+      "editable": false
+    },
+    {
+      "index": 1,
+      "symbol": "O",
+      "role": "outline",
+      "color": "#60443B",
+      "editable": false
+    },
+    {
+      "index": 2,
+      "symbol": "M",
+      "role": "primary",
+      "color": "#D39AA3",
+      "editable": true
+    },
+    {
+      "index": 3,
+      "symbol": "S",
+      "role": "primary_shadow",
+      "color": "#A57078",
+      "editable": false,
+      "linkedTo": 2,
+      "linkedTone": -0.22
+    },
+    {
+      "index": 4,
+      "symbol": "L",
+      "role": "secondary",
+      "color": "#F6E8D4",
+      "editable": true
+    },
+    {
+      "index": 5,
+      "symbol": "A",
+      "role": "accent",
+      "color": "#91A095",
+      "editable": true
+    },
+    {
+      "index": 6,
+      "symbol": "H",
+      "role": "primary_highlight",
+      "color": "#DCAEB5",
+      "editable": false,
+      "linkedTo": 2,
+      "linkedTone": 0.18
+    },
+    {
+      "index": 7,
+      "symbol": "D",
+      "role": "secondary_shadow",
+      "color": "#D9C7AF",
+      "editable": false,
+      "linkedTo": 4,
+      "linkedTone": -0.11
+    },
+    {
+      "index": 8,
+      "symbol": "C",
+      "role": "lace_highlight",
+      "color": "#FFF3DF",
+      "editable": false,
+      "linkedTo": 4,
+      "linkedTone": 0.1
+    },
+    {
+      "index": 9,
+      "symbol": "G",
+      "role": "accent_shadow",
+      "color": "#657A70",
+      "editable": false,
+      "linkedTo": 5,
+      "linkedTone": -0.2
+    },
+    {
+      "index": 10,
+      "symbol": "N",
+      "role": "embroidery",
+      "color": "#B8796F",
+      "editable": true
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+服装名称：玫瑰奶霜分层蕾丝裙
+服装模板：rose-tiered-lace
+服装类型：tiered-bell-dress
+适配身体：body_chibi_64_v2
+领口：lace-square-collar
+肩袖：short-puff-sleeve
+腰部：double-bow-at-y42
+下摆：three-tier-lace-at-y48-56
+可编辑通道：主布料、辅布料、强调色、刺绣
+画风：严格使用例图比例、暖棕描边、低饱和奶油色阶与离散像素高光
+图层：back、main、front
+正式数据：pixels.json + palette.json
