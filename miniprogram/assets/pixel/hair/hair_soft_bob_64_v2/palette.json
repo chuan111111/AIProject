@@ -1,0 +1,75 @@
+{
+  "version": "2.1",
+  "id": "hair_soft_bob_64_v2",
+  "palette": [
+    {
+      "index": 0,
+      "symbol": "T",
+      "role": "transparent",
+      "color": "#00000000",
+      "editable": false
+    },
+    {
+      "index": 1,
+      "symbol": "O",
+      "role": "hair_outline",
+      "color": "#513C38",
+      "editable": false
+    },
+    {
+      "index": 2,
+      "symbol": "H",
+      "role": "hair_primary",
+      "color": "#795644",
+      "editable": true
+    },
+    {
+      "index": 3,
+      "symbol": "D",
+      "role": "hair_deep_shadow",
+      "color": "#493025",
+      "editable": false,
+      "linkedTo": 2,
+      "linkedTone": -0.34
+    },
+    {
+      "index": 4,
+      "symbol": "L",
+      "role": "hair_highlight",
+      "color": "#AB8065",
+      "editable": true
+    },
+    {
+      "index": 5,
+      "symbol": "S",
+      "role": "hair_soft_shadow",
+      "color": "#624233",
+      "editable": false,
+      "linkedTo": 2,
+      "linkedTone": -0.17
+    },
+    {
+      "index": 6,
+      "symbol": "G",
+      "role": "hair_glint",
+      "color": "#C49A7D",
+      "editable": false,
+      "linkedTo": 4,
+      "linkedTone": 0.14
+    },
+    {
+      "index": 7,
+      "symbol": "P",
+      "role": "hair_accessory",
+      "color": "#D39AA3",
+      "editable": true
+    },
+    {
+      "index": 8,
+      "symbol": "C",
+      "role": "hair_accessory_light",
+      "color": "#F2E3CE",
+      "editable": false
+    }
+  ]
+}

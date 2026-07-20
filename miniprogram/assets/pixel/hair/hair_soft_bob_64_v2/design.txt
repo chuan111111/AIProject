@@ -1,0 +1,7 @@
+素材名称：花结软圆短发 64×64
+素材类型：独立发型
+适配身体：body_chibi_64_v2
+图层：hair_back、hair_main、hair_front、hair_accessory
+画风：暖栗棕多段色阶、离散发丝高光、轻微波浪发尾、豆沙小花结
+限制：不允许修改 body_core；发色通过独立调色板换色
+正式数据：pixels.json + palette.json
