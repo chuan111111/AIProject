@@ -1,0 +1,6 @@
+.env
+.env.*
+!.env.example
+cloudfunctions/**/.env
+cloudfunctions/**/.env.*
+**/*secret*.json
